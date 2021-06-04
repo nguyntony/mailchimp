@@ -3,13 +3,14 @@
     <!-- form -->
     <div v-if="!formState.completed">
       <h1>Mailchimp Subscriber Form</h1>
-      <validation-observer v-slot="{ handleSubmit }" slim>
+      <validation-observer v-slot="{ handleSubmit, invalid }" slim>
         <form @submit.prevent="handleSubmit(onSubmit)">
           <!-- first name -->
           <validation-provider
             name="first-name"
             rules="required|alpha"
             v-slot="{ errors }"
+            slim
           >
             <div class="field">
               <label>First Name</label>
@@ -23,6 +24,7 @@
             name="last-name"
             rules="required|alpha"
             v-slot="{ errors }"
+            slim
           >
             <div class="field">
               <label>Last Name</label>
@@ -36,6 +38,7 @@
             name="email"
             rules="required|email"
             v-slot="{ errors }"
+            slim
           >
             <div class="field">
               <label>Email</label>
@@ -45,7 +48,7 @@
           </validation-provider>
 
           <!-- submit -->
-          <input type="submit" value="Submit" />
+          <input type="submit" value="Submit" :disabled="invalid" />
         </form>
       </validation-observer>
     </div>
