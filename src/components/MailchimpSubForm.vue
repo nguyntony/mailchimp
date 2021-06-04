@@ -3,7 +3,7 @@
     <!-- form -->
     <div v-if="!formState.completed">
       <h1>Mailchimp Subscriber Form</h1>
-      <validation-observer v-slot="{ handleSubmit }">
+      <validation-observer v-slot="{ handleSubmit }" slim>
         <form @submit.prevent="handleSubmit(onSubmit)">
           <!-- first name -->
           <validation-provider
