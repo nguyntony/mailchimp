@@ -86,6 +86,7 @@ export default {
   },
   data() {
     return {
+      name: 'MailChimp Subscribe Form',
       formData: {
         firstName: '',
         lastName: '',
@@ -96,6 +97,7 @@ export default {
         loading: false,
         message: '',
       },
+      route: 'blah', // insert POST route.
     };
   },
   methods: {
@@ -108,12 +110,13 @@ export default {
       //   // do some checking for whether it was successful or not.
       //   this.formState.message = 'Thank you!';
       // }, 5000);
+
       // after validation the user will submit their data
       this.formState.completed = !this.formState.completed;
       // this will trigger the loading animation
       this.formState.loading = !this.formState.loading;
       // call
-      const resp = await axios.post('/route', this.formData);
+      const resp = await axios.post(this.route, this.formData);
       // depending on resp, do if statement
     },
   },

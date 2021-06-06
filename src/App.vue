@@ -1,15 +1,17 @@
 <template>
   <div id="app">
     <mailchimp-sub-form />
+    <basic-form />
   </div>
 </template>
 
 <script>
 import MailchimpSubForm from './components/MailchimpSubForm';
+import BasicForm from './components/BasicForm';
 
 export default {
   name: 'App',
-  components: { MailchimpSubForm },
+  components: { MailchimpSubForm, BasicForm },
 };
 </script>
 
