@@ -1,8 +1,17 @@
 <template>
   <div id="mailchimp-sub-form">
+    <router-link to="/">Home</router-link>
+    <h1>Mailchimp Subscriber Form</h1>
+    <div class="description">
+      <p>
+        Mailchimp subscribe form based on Fivestone. See
+        <span class="highlight">'components/MailchimpSubForm'</span>
+        for more information.
+      </p>
+    </div>
+
     <!-- form -->
     <div v-if="!formState.completed">
-      <h1>Mailchimp Subscriber Form</h1>
       <validation-observer v-slot="{ handleSubmit, invalid }" slim>
         <form @submit.prevent="handleSubmit(onSubmit)">
           <!-- first name -->
@@ -80,13 +89,13 @@ import * as rules from '../utils/validation';
 import axios from 'axios';
 
 export default {
+  name: 'MailChimp Subscribe Form',
   components: {
     ValidationProvider,
     ValidationObserver,
   },
   data() {
     return {
-      name: 'MailChimp Subscribe Form',
       formData: {
         firstName: '',
         lastName: '',
