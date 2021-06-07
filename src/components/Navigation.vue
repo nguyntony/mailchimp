@@ -4,7 +4,7 @@
     <div class="description">
       <p>
         A collection for form examples/templates that can be used for various
-        projects. The forms utilize vee-validate which handles form valiation
+        projects. The forms utilize vee-validate which handles form validation
         and allows for customization such as errors, styling, etc.
       </p>
       <p>

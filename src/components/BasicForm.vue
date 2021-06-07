@@ -137,7 +137,7 @@ export default {
         this.formState.loading = !this.formState.loading;
         // do some checking for whether it was successful or not.
         this.formState.message = 'Thank you!';
-      }, 5000);
+      }, 3000);
     },
   },
 };

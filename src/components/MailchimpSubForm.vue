@@ -89,7 +89,7 @@ import * as rules from '../utils/validation';
 import axios from 'axios';
 
 export default {
-  name: 'MailChimp Subscribe Form',
+  name: 'MailChimpSubscribeForm',
   components: {
     ValidationProvider,
     ValidationObserver,
