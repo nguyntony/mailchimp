@@ -1,30 +1,75 @@
 # MailChimp Vue Component
+
+## Mailchimp Setup
+This component assumes that the project already has an existing MailChimp account. We will need the `audience ID or list ID` and that can be found like [this](https://mailchimp.com/help/find-audience-id/). If the project does not have an audience, you will need to go through the steps of creating one, like [this](https://mailchimp.com/help/create-audience/).
+
+The component will also need access to the MailChimp `API key`. It can be found or generated like [this](https://support.checkfront.com/hc/en-us/articles/115004180154-Mailchimp-Setup-API-Key).
+
+1. Ensure that information is inside of your `.env` file
+```
+MAILCHIMP_API_KEY=
+MAILCHIMP_LIST_ID=
+```
+2. We will also need to set up the `config/app.php`
+```
+'mailchimp_api_key' => env('MAILCHIMP_API_KEY'),
+'mailchimp_list_id' => env('MAILCHIMP_LIST_ID')
+```
+Note: Inside of the `config/app.php` files you may place these lines at the very bottom. This file will include arrays and such, just comma after it and paste the lines in. 
+
 ## PHP Setup
 This is needed because making requests on the client side may result in a CORS error. So this setup will bypass that issue since we are making the requests from the server side.
 
 You will need this [package](https://github.com/drewm/mailchimp-api).
 
-### Controllers
-You will need to create another file that will be the designated controller file. 
+## Controllers
+Inside of `app/Http/Controllers`, you will need to create another controller file there to handle the form submission. 
 
-1. Import the existing `controller` file and the `mailchimp API` package that we installed above. 
+1. Inside of that file you will need this code: 
+```php
+<?php
 
-``` php
+namespace App\Http\Controllers;
+
 use App\Http\Controllers\Controller;
 use \DrewM\MailChimp\MailChimp;
-``` 
 
-2. Create the controller by extending the existing `controller` file that was imported in the step before. 
+class MailchimpController extends Controller
+{
+  public function subscribe() 
+  {
+    // you will need the mailchimp api key
+    $MailChimp = new MailChimp(config("app.mailchimp_api_key"));
+    // you will need the mailchimp list_id
+    $list_id = config("app.mailchimp_list_id");
 
-``` php 
-class MailChimpController extends Controller {}
+    // grab user data
+    $firstName = request()->input('firstName');
+    $lastName = request()->input('lastName');
+    $userEmail = request()->input('email');
+
+    // create the subscription
+    $result = $MailChimp->post("lists/$list_id/members", [
+      'email_address' => $userEmail,
+      'status' => 'subscribed',
+      'merge_fields' => [
+        'FNAME' => $firstName,
+        'LNAME' => $lastName
+      ]
+    ]);
+
+    return 'successful';
+  }
+}
 ```
 
-3. You will now create functions inside of this controller that will handle the subscriptions. 
+### Routers
+You will need to create POST routes for the calls that you are making. Go to the `routes/web.php` file. Import the controller that you created in the step before. `use App\Http\Controllers\MailchimpController`
 
-4. After the functions are created, then declare these functions in the `routes/web.php` file. 
-
-The routes here are the actual routes that is used in the Vue axios call. 
+1. Create a route like so: `Route::post('/mailchimpsub', [MailchimpController::class, 'subscribe']);`
+2. `'/mailchimpsub'` this will be the POST route that you will give to your Vue component. It is where you are sending the data.
+3. `MailchimpController::class` this corresponds with the controller file that you created in the step before.
+4. `'subscribe'` this is the function that you created inside of your controller class.
 
 ## Vee-Validate
 To handle form validations in vue, we are going to be using [vee-validate](https://vee-validate.logaretm.com/v3/guide/basics.html)

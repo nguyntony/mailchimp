@@ -24,22 +24,34 @@
           >
             <div class="field">
               <label>First Name</label>
-              <input type="text" v-model="formData.firstName" />
+              <input
+                type="text"
+                v-model="formData.firstName"
+                :class="errors[0] ? 'invalid' : 'valid'"
+              />
               <span class="error">{{ errors[0] }}</span>
             </div>
           </validation-provider>
+
+          <!-- last name -->
           <validation-provider
-            name="first-name"
+            name="last-name"
             rules="required|alpha"
             v-slot="{ errors }"
             slim
           >
             <div class="field">
               <label>Last Name</label>
-              <input type="text" v-model="formData.lastName" />
+              <input
+                type="text"
+                v-model="formData.lastName"
+                :class="errors[0] ? 'invalid' : 'valid'"
+              />
               <span class="error">{{ errors[0] }}</span>
             </div>
           </validation-provider>
+
+          <!-- age -->
           <validation-provider
             name="age"
             rules="required|min_value:1"
@@ -48,10 +60,16 @@
           >
             <div class="field age">
               <label>Age</label>
-              <input type="number" v-model="formData.age" />
+              <input
+                type="number"
+                v-model="formData.age"
+                :class="errors[0] ? 'invalid' : 'valid'"
+              />
               <span class="error">{{ errors[0] }}</span>
             </div>
           </validation-provider>
+
+          <!-- gender -->
           <validation-provider>
             <div class="field">
               <label>Gender</label>
@@ -63,6 +81,7 @@
             </div>
           </validation-provider>
 
+          <!-- terms -->
           <validation-provider
             name="terms"
             :rules="{ required: { allowFalse: false } }"
@@ -151,5 +170,10 @@ export default {
 .age {
   width: 200px;
   margin: 0 auto;
+}
+
+input.invalid {
+  border: 2px solid red;
+  border-radius: 4px;
 }
 </style>
