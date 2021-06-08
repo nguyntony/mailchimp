@@ -23,7 +23,11 @@
           >
             <div class="field">
               <label>First Name</label>
-              <input type="text" v-model="formData.firstName" />
+              <input
+                type="text"
+                :value="formData.firstName"
+                @input="formData.firstName = capitalize($event.target.value)"
+              />
               <span class="error">{{ errors[0] }}</span>
             </div>
           </validation-provider>
@@ -37,7 +41,11 @@
           >
             <div class="field">
               <label>Last Name</label>
-              <input type="text" v-model="formData.lastName" />
+              <input
+                type="text"
+                :value="formData.lastName"
+                @input="formData.lastName = capitalize($event.target.value)"
+              />
               <span class="error">{{ errors[0] }}</span>
             </div>
           </validation-provider>
@@ -127,6 +135,9 @@ export default {
       // call
       const resp = await axios.post(this.route, this.formData);
       // depending on resp, do if statement
+    },
+    capitalize(name) {
+      return name.charAt(0).toUpperCase() + name.slice(1);
     },
   },
 };
