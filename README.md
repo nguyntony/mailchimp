@@ -122,7 +122,7 @@ return {
     loading: false,
     message: '',
   },
-	route: '',
+  route: '',
 };
 },
 ```
@@ -156,3 +156,43 @@ async onSubmit() {
   }
 },
 ```
+
+## Statamic
+Using the foundation and knowledge of what I’ve talked about so far. You are able to apply it to statamic forms, therefore submitting information to statamic and being able to integrate vue frameworks such as the `vee-validate`.
+
+In order to use the component for Statamic, there a few things that you must gather:
+
+- When creating a form in the statamic CP, you will have an option to assign the handle to the form. This handle is important because it will be the POST route that you will submit the data.
+
+Above, I created a vue component with route as one of the properties, it is best to assign this statamic route to that property. You must prepend the route with:
+`/!/forms/{form_name}`, just replace `{form_name}` with the form’s handle.
+
+- From here you should recreate the form inside of Vue. In order to have a successful submission, ensure that you match the data properties with the corresponding form handle names. For example, if your statamic form requires the first name, last name and email. 
+
+Then statamic may assign the handle for these fields such as…
+	- First Name => first_name
+	- Last Name => last_name
+	- Email => email
+	
+The important thing here is that the slug/handle (whatever it is) should match the vue data properties…
+```
+data() {
+	return {
+		formData: {
+			first_name: "",
+			last_name: "",
+			email: "",		
+		}
+  }
+}
+``` 
+It is important to note that I’d like to store the user data inside of another object which makes it easier to send in the POST. 
+
+Because of this naming convention you may need resort to using bracket notation for your v-model. 
+```html
+<input type="text" v-model="formData['first_name']"/>
+```
+
+## Resources for later
+- [Cross Field Validation](https://vee-validate.logaretm.com/v3/advanced/cross-field-validation.html#targeting-other-fields) (Password and Confirmation)
+- [Refactoring](https://vee-validate.logaretm.com/v3/advanced/refactoring-forms.html#extracting-input-fields)

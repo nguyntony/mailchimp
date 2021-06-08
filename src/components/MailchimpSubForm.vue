@@ -15,54 +15,40 @@
       <validation-observer v-slot="{ handleSubmit, invalid }" slim>
         <form @submit.prevent="handleSubmit(onSubmit)">
           <!-- first name -->
-          <validation-provider
-            name="first-name"
+          <text-input
+            v-model="formData.firstName"
+            name="firstName"
             rules="required|alpha"
-            v-slot="{ errors }"
-            slim
-          >
-            <div class="field">
-              <label>First Name</label>
-              <input
-                type="text"
-                :value="formData.firstName"
-                @input="formData.firstName = capitalize($event.target.value)"
-              />
-              <span class="error">{{ errors[0] }}</span>
-            </div>
-          </validation-provider>
+            label="First Name"
+            className="field"
+          />
 
           <!-- last name -->
-          <validation-provider
-            name="last-name"
+          <text-input
+            v-model="formData.lastName"
+            name="lastName"
             rules="required|alpha"
-            v-slot="{ errors }"
-            slim
-          >
-            <div class="field">
-              <label>Last Name</label>
-              <input
-                type="text"
-                :value="formData.lastName"
-                @input="formData.lastName = capitalize($event.target.value)"
-              />
-              <span class="error">{{ errors[0] }}</span>
-            </div>
-          </validation-provider>
+            label="Last Name"
+            className="field"
+          />
 
           <!-- email -->
-          <validation-provider
+          <text-input
+            v-model="formData.email"
+            type="email"
             name="email"
             rules="required|email"
-            v-slot="{ errors }"
-            slim
-          >
-            <div class="field">
-              <label>Email</label>
-              <input type="email" v-model="formData.email" />
-              <span class="error">{{ errors[0] }}</span>
-            </div>
-          </validation-provider>
+            label="Email"
+            className="field"
+          />
+
+          <text-input
+            type="input"
+            name="honeypot"
+            rules="honeypot"
+            label="HoneyPot"
+            className="field"
+          />
 
           <!-- submit -->
           <input type="submit" value="Submit" :disabled="invalid" />
@@ -92,15 +78,16 @@
 </template>
 
 <script>
-import { ValidationProvider, ValidationObserver } from 'vee-validate';
+import { ValidationObserver } from 'vee-validate';
+import TextInput from './TextInput';
 import * as rules from '../utils/validation';
 import axios from 'axios';
 
 export default {
   name: 'MailChimpSubscribeForm',
   components: {
-    ValidationProvider,
     ValidationObserver,
+    TextInput,
   },
   data() {
     return {
@@ -119,21 +106,20 @@ export default {
   },
   methods: {
     async onSubmit() {
-      // console.log(this.formData);
-      // this.formState.completed = !this.formState.completed;
-      // this.formState.loading = !this.formState.loading;
-      // setTimeout(() => {
-      //   this.formState.loading = !this.formState.loading;
-      //   // do some checking for whether it was successful or not.
-      //   this.formState.message = 'Thank you!';
-      // }, 5000);
-
-      // after validation the user will submit their data
+      console.log(this.formData);
       this.formState.completed = !this.formState.completed;
-      // this will trigger the loading animation
       this.formState.loading = !this.formState.loading;
+      setTimeout(() => {
+        this.formState.loading = !this.formState.loading;
+        // do some checking for whether it was successful or not.
+        this.formState.message = 'Thank you!';
+      }, 5000);
+      // after validation the user will submit their data
+      // this.formState.completed = !this.formState.completed;
+      // this will trigger the loading animation
+      // this.formState.loading = !this.formState.loading;
       // call
-      const resp = await axios.post(this.route, this.formData);
+      // const resp = await axios.post(this.route, this.formData);
       // depending on resp, do if statement
     },
     capitalize(name) {
@@ -149,6 +135,10 @@ export default {
   flex-direction: column;
   align-items: center;
   margin: 50px 0;
+}
+
+.off {
+  display: none;
 }
 
 .field input {

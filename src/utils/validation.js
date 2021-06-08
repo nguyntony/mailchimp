@@ -18,3 +18,9 @@ extend('min_value', {
   ...min_value,
   message: 'Please enter a valid age',
 });
+extend('honeypot', {
+  message: (field) => `This ${field} should NOT be filled out.`,
+  validate: (value) => {
+    return value.length === 0 ? true : false;
+  },
+});
