@@ -146,13 +146,13 @@ async onSubmit() {
   const resp = await axios.post(this.route, this.formData);
 	
   // depending on resp, do if statement
-	// stop the loading animation
-	this.formState.loading = !this.formState.loading;
-	// console.log(resp);
-	if (resp.data === 'successful') {
-	  this.formState.message = "thank you for signing up."
-	} else {
-	  this.formState.message = "please try again."
-	}
+  // stop the loading animation
+  this.formState.loading = !this.formState.loading;
+  // console.log(resp);
+  if (resp.data === 'successful') {
+    this.formState.message = "thank you for signing up."
+  } else {
+    this.formState.message = "please try again."
+  }
 },
 ```
