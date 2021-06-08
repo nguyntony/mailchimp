@@ -22,6 +22,8 @@ This is needed because making requests on the client side may result in a CORS e
 
 You will need this [package](https://github.com/drewm/mailchimp-api).
 
+Note: This repo contains a `php/` directory that contains an example of the files that are needed but the files are not in their respective locations, meaning the files will be in a different folder structure that is pertinent to your project.
+
 ## Controllers
 Inside of `app/Http/Controllers`, you will need to create another controller file there to handle the form submission. 
 
