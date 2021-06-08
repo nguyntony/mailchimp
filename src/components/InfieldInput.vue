@@ -87,20 +87,21 @@ input {
 }
 .field {
   position: relative;
+  width: 375px;
 }
 
 .form__input {
-  position: absolute;
-  top: 0;
-  left: 0;
-  /* width: 100%; */
+  /* position: absolute; */
+  /* top: 0; */
+  /* left: 0; */
+  width: 100%;
   /* height: 100%; */
   border: 2px solid lightgray;
   border-radius: 5px;
   font-family: inherit;
   /* color: white; */
   outline: none;
-  padding: 10px;
+  padding: 15px;
   background: none;
 }
 .form__input:hover {
@@ -111,8 +112,9 @@ input {
 }
 .form__label {
   position: absolute;
-  left: 10px;
-  top: 10px;
+  /* left: 350px; */
+  /* top: 5px; */
+  left: 0;
   padding: 0 5px;
   color: black;
   cursor: text;
