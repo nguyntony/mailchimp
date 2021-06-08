@@ -193,6 +193,7 @@ Because of this naming convention you may need resort to using bracket notation 
 <input type="text" v-model="formData['first_name']"/>
 ```
 
-## Resources for later
+## Resources
 - [Cross Field Validation](https://vee-validate.logaretm.com/v3/advanced/cross-field-validation.html#targeting-other-fields) (Password and Confirmation)
 - [Refactoring](https://vee-validate.logaretm.com/v3/advanced/refactoring-forms.html#extracting-input-fields)
+- [General](https://www.istimuli.com/2019/10/24/veevalidate/)
