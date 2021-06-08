@@ -1,6 +1,7 @@
 import MailchimpSubForm from './components/MailchimpSubForm';
 import BasicForm from './components/BasicForm';
 import Navigation from './components/Navigation';
+import InfieldForm from './components/InfieldForm';
 
 export default [
   {
@@ -14,5 +15,9 @@ export default [
   {
     path: '/',
     component: Navigation,
+  },
+  {
+    path: '/infield',
+    component: InfieldForm,
   },
 ];

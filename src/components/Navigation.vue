@@ -20,6 +20,9 @@
             >Mailchimp Subscribe</router-link
           >
         </li>
+        <li>
+          <router-link to="/infield">Infield Style</router-link>
+        </li>
       </ul>
     </nav>
   </div>
