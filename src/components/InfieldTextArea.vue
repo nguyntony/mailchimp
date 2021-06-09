@@ -3,19 +3,17 @@
     :class="className"
     :rules="rules"
     :name="name"
-    :vid="vid"
     v-slot="{ errors }"
     slim
   >
     <div class="field">
-      <input
-        :type="type"
+      <textarea
+        :name="name"
         v-model="currentValue"
         :id="name"
-        :class="['form__input', errors[0] ? 'invalid' : '']"
         placeholder=" "
-        autocomplete="off"
-      />
+        :class="['form__textarea', errors[0] ? 'invalid' : '']"
+      ></textarea>
       <label :for="name" class="form__label">{{ label }}</label>
       <span class="error">{{ errors[0] }}</span>
     </div>
@@ -26,7 +24,7 @@
 import { ValidationProvider } from 'vee-validate';
 
 export default {
-  name: 'TextInput',
+  name: 'TextArea',
   components: { ValidationProvider },
   props: {
     value: {
@@ -40,14 +38,6 @@ export default {
     name: {
       type: String,
       default: '',
-    },
-    type: {
-      type: String,
-      default: 'text',
-    },
-    vid: {
-      type: String,
-      default: undefined,
     },
     label: {
       type: String,
@@ -74,59 +64,46 @@ export default {
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap');
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-label,
-input {
-  font-family: 'Noto Sans JP', sans-serif;
-}
-
 .field {
   position: relative;
-  width: 375px;
+  width: 360px;
   margin: 25px;
 }
 
-.form__input {
+.form__textarea {
   width: 100%;
-  height: 100%;
+  min-height: 125px;
+  border: 2px solid lightgray;
+  font-family: inherit;
   outline: none;
   background: none;
-  border: none;
-  border-radius: 0px;
-  border-bottom: 2px solid lightgray;
-  font-family: inherit;
   font-size: 16px;
-  padding: 15px 5px;
+  resize: vertical;
+  border-radius: 5px;
+  padding: 10px 8px;
 }
 
-.form__input.invalid {
-  border-bottom: 2px solid tomato;
+.form__textarea.invalid {
+  border: 2px solid tomato;
 }
 
-.form__input:hover {
+.form__textarea:hover {
   border-color: darkgray;
 }
 
-.form__input:focus {
+.form__textarea:focus {
   border-color: cornflowerblue;
 }
 
-.form__input.invalid:hover,
-.form__input.invalid:focus {
+.form__textarea.invalid:hover,
+.form__textarea.invalid:focus {
   border-color: tomato;
 }
 
 .form__label {
   position: absolute;
-  top: 18px;
-  left: 5px;
+  top: 15px;
+  left: -2px;
   padding: 0 5px;
   color: black;
   cursor: text;
@@ -134,25 +111,33 @@ input {
   text-transform: uppercase;
   font-size: 14px;
   color: gray;
+  font-weight: 400;
 }
 
-.form__input:focus + .form__label {
+.form__textarea:focus + .form__label {
   color: cornflowerblue;
 }
 
-.form__input.invalid ~ .form__label {
+.form__textarea.invalid ~ .form__label {
   color: tomato;
 }
 
-.form__input.invalid:focus + .form__label {
+.form__textarea.invalid:focus + .form__label {
   color: tomato;
 }
-.form__input:focus ~ .form__label,
-.form__input:not(:placeholder-shown).form__input:not(:focus) ~ .form__label {
-  top: -11px;
-  left: 0px;
+
+.form__textarea:focus + .form__label {
+  color: cornflowerblue;
+}
+
+.form__textarea:focus ~ .form__label,
+.form__textarea:not(:placeholder-shown).form__textarea:not(:focus)
+  ~ .form__label {
+  top: -18px;
+  left: -7px;
   font-size: 10px;
   font-weight: 400;
+  /* color: cornflowerblue; */
 }
 
 /* error */
@@ -161,21 +146,5 @@ span.error {
   font-weight: 500;
   font-size: 10px;
   color: tomato;
-}
-
-/* autocomplete */
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-textarea:-webkit-autofill,
-textarea:-webkit-autofill:hover,
-textarea:-webkit-autofill:focus,
-select:-webkit-autofill,
-select:-webkit-autofill:hover,
-select:-webkit-autofill:focus {
-  /* border: 1px solid green; */
-  /* -webkit-text-fill-color: green; */
-  /* -webkit-box-shadow: 0 0 0px 1000px #000 inset; */
-  transition: background-color 5000s ease-in-out 0s;
 }
 </style>

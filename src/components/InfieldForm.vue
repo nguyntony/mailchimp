@@ -5,7 +5,8 @@
     <h1>Infield Style</h1>
     <div class="description">
       <p>
-        Form that is dressed up with some standard design elements. See
+        Form that is inspired by StateBuilt. Has some UI validation elements.
+        See
         <span class="highlight">'components/InfieldForm'</span> for more
         information.
       </p>
@@ -15,36 +16,40 @@
     <div>
       <validation-observer v-slot="{ handleSubmit, invalid }" slim>
         <form @submit.prevent="handleSubmit(onSubmit)">
+          <!-- <h2>Hello</h2> -->
           <!-- name -->
           <infield-input
             v-model="formData.name"
             name="name"
-            rules="required|alpha"
+            rules="required|alpha_spaces"
             label="Name"
           />
 
           <!-- company -->
-          <!-- <infield-input
+          <infield-input
             v-model="formData.company"
             name="company"
             label="Company"
-          /> -->
+          />
 
           <!-- email -->
-          <!-- <infield-input
+          <infield-input
             v-model="formData.email"
             name="email"
             rules="required|email"
             label="Email"
-          /> -->
+          />
 
           <!-- message -->
-          <!-- <infield-input
+          <infield-text-area
             v-model="formData.message"
             name="message"
+            rules="required"
             label="Message"
-            type="textarea"
-          /> -->
+          />
+
+          <!-- submit -->
+          <input type="submit" value="submit" />
         </form>
       </validation-observer>
     </div>
@@ -54,11 +59,12 @@
 <script>
 import { ValidationObserver } from 'vee-validate';
 import InfieldInput from './InfieldInput';
+import InfieldTextArea from './InfieldTextArea';
 import * as rules from '../utils/validation';
 
 export default {
   name: 'InfieldForm',
-  components: { ValidationObserver, InfieldInput },
+  components: { ValidationObserver, InfieldInput, InfieldTextArea },
   data() {
     return {
       formData: {
@@ -69,6 +75,11 @@ export default {
       },
     };
   },
+  methods: {
+    onSubmit() {
+      console.log(this.formData);
+    },
+  },
 };
 </script>
 
@@ -77,7 +88,38 @@ form {
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* justify-content: center; */
-  /* position: relative; */
+  width: 400px;
+  margin: auto;
+}
+
+.description {
+  margin-bottom: 0px;
+}
+
+input[type='submit'] {
+  padding: 15px 20px;
+  align-self: flex-end;
+  margin-right: 10px;
+  cursor: pointer;
+  background-color: cornflowerblue;
+  outline: none;
+  border: none;
+  font-family: 'Noto Sans JP', sans-serif;
+  text-transform: uppercase;
+  color: #fcf8f4;
+  font-weight: 500;
+}
+
+input[type='submit']:hover {
+  background-color: #0b5a96;
+}
+
+h2 {
+  margin: 0px;
+  align-self: flex-start;
+  text-transform: uppercase;
+  font-weight: 900;
+  font-size: 20px;
+  margin-left: 13px;
 }
 </style>
